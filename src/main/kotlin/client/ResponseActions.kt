@@ -26,18 +26,26 @@ class ResponseActions(code: Int, body: String?) {
             }
             catch (e: StatusResponseMatchersException)
             {
-                println(e)
+//                println(e)
+                throw e
             }
         }
         fun body(bodyCheck: BodyResponseMatcher.()->Unit)
         {
-            bodyCheck(BodyResponseMatcher())
+            try
+            {
+                bodyCheck(BodyResponseMatcher())
+            }
+            catch (e: BodyResponseMatchersException)
+            {
+//                println(e)
+                throw e
+            }
         }
         inner class StatusResponseMatcher()
         {
             fun isOk()
             {
-                println(response.code != 200)
                 if (response.code != 200)
                 {
                     throw StatusResponseMatchersException("Status is not 200! It is ${response.code}")

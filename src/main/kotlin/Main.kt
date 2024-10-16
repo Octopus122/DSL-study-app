@@ -3,10 +3,10 @@ import org.example.client.*
 
 fun main() {
     val mockClient = Client()
-    val response1 = mockClient.perform(101, "OK")
+    val response = mockClient.perform(200, "OK")
         .andExpect {
             status {
-                isBadRequest()
+                isOk()
             }
             body {
                 isNotNull()
